@@ -11,9 +11,6 @@ buildscript {
 }
 
 apply plugin: 'groovy'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 group = 'com.k_int.folio.workflow'
 version = '0.0.1-SNAPSHOT'
@@ -21,21 +18,31 @@ sourceCompatibility = 1.8
 
 repositories {
   mavenCentral()
+  maven { url 'https://repo.grails.org/grails/core' }
+  maven { url 'http://maven.k-int.com/content/repositories/releases' }
+  maven { url 'http://maven.k-int.com/content/repositories/private' }
+  maven { url "https://repo.grails.org/grails/core" }
+  maven { url "http://central.maven.org/maven2" }
+  maven { url "https://app.camunda.com/nexus/content/groups/public" }
 }
 
 
 dependencies {
-  compile('org.springframework.boot:spring-boot-starter')
-  compile('org.codehaus.groovy:groovy')
-
+  // https://github.com/camunda/camunda-bpm-examples/blob/master/deployment/embedded-spring-rest/pom.xml
+  //
   // The latest veriosn of camunda spring boot is documented here:
   // https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/ which yelds the following:
   // compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:2.4.0"
   //
-  compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:2.4.0"
-  compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:2.4.0"
-  compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:2.4.0"
+  //compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:2.4.0-SNAPSHOT"
+  //compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:2.4.0-SNAPSHOT"
+  //compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:2.4.0-SNAPSHOT"
+  compile "org.camunda.bpm:camunda-bom:7.8.0"
+  compile "org.camunda.bpm:camunda-engine:7.8.0"
+  compile "org.camunda.bpm:camunda-engine-spring:7.8.0"
+  compile "org.camunda.bpm:camunda-engine-rest:7.8.0"
+  compile "org.jboss.resteasy:resteasy-jaxrs:3.0.8.Final"
+  compile "org.springframework:spring-web:3.1.2.RELEASE"
 
   runtime('org.postgresql:postgresql')
-  testCompile('org.springframework.boot:spring-boot-starter-test')
 }
