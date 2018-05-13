@@ -22,6 +22,17 @@ appender('STDOUT', ConsoleAppender) {
     }
 }
 
+logger ('grails.app.init', DEBUG)
+logger ('grails.app.controllers', DEBUG)
+logger ('grails.app.domains', DEBUG)
+logger ('grails.app.jobs', DEBUG)
+logger ('grails.app.services', DEBUG)
+logger ('com.k_int', DEBUG)
+logger ('pubskb', DEBUG)
+logger ('okapi', INFO)
+logger ('folio', DEBUG)
+logger ('org.olf', DEBUG)
+
 def targetDir = BuildSettings.TARGET_DIR
 if (Environment.isDevelopmentMode() && targetDir != null) {
     appender("FULL_STACKTRACE", FileAppender) {
