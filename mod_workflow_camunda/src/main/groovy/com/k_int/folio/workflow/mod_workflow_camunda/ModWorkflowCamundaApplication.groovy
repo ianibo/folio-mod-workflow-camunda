@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 @SpringBootApplication
 class ModWorkflowCamundaApplication {
 
-	static void main(String[] args) {
-		SpringApplication.run ModWorkflowCamundaApplication, args
-	}
+  static void main(String[] args) {
+    SpringApplication.run ModWorkflowCamundaApplication, args
+  }
 }

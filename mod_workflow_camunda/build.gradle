@@ -1,13 +1,13 @@
 buildscript {
-	ext {
-		springBootVersion = '2.0.2.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+  ext {
+    springBootVersion = '2.0.2.RELEASE'
+  }
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+  }
 }
 
 apply plugin: 'groovy'
@@ -20,13 +20,22 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+  mavenCentral()
 }
 
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter')
-	compile('org.codehaus.groovy:groovy')
-	runtime('org.postgresql:postgresql')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+  compile('org.springframework.boot:spring-boot-starter')
+  compile('org.codehaus.groovy:groovy')
+
+  // The latest veriosn of camunda spring boot is documented here:
+  // https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/ which yelds the following:
+  // compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:2.4.0"
+  //
+  compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:2.4.0"
+  compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:2.4.0"
+  compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:2.4.0"
+
+  runtime('org.postgresql:postgresql')
+  testCompile('org.springframework.boot:spring-boot-starter-test')
 }
