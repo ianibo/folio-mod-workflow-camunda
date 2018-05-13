@@ -22,8 +22,16 @@ apply plugin:"org.grails.grails-gsp"
 
 repositories {
     mavenLocal()
+    mavenCentral()
+    maven { url 'https://repo.grails.org/grails/core' }
+    maven { url 'http://maven.k-int.com/content/repositories/releases' }
+    maven { url 'http://maven.k-int.com/content/repositories/private' }
     maven { url "https://repo.grails.org/grails/core" }
+    maven { url "http://central.maven.org/maven2" }
 }
+
+// Useful links for this project here:
+//   https://github.com/osteinhauer/camunda-spring-boot-starter-examples/tree/master/rest-api-and-webapp
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
@@ -46,6 +54,18 @@ dependencies {
     compile "org.grails.plugins:hibernate5"
     compile "org.hibernate:hibernate-core:5.1.5.Final"
     compile "org.grails.plugins:gsp"
+
+    // The latest veriosn of camunda spring boot is documented here:
+    // https://docs.camunda.org/manual/latest/user-guide/spring-boot-integration/ which yelds the following:
+    // compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:2.4.0"
+    //
+    // However, that version would use spring-boot 2 and grails 3.3.5 is not yet there, so we're going with 
+    // 2.2 - as in https://camunda.github.io/camunda-bpm-spring-boot-starter/docs/2.2.0/index.html for
+    // harmonisation
+    compile "org.camunda.bpm.extension.springboot:camunda-bpm-spring-boot-starter:2.2.0"
+    compile "org.camunda.bpm.extension.springboot:camunda-bpm-spring-boot-starter-webapp:2.2.0"
+    compile "org.camunda.bpm.extension.springboot:camunda-bpm-spring-boot-starter-rest:2.2.0"
+
     console "org.grails:grails-console"
     profile "org.grails.profiles:web"
     runtime "org.glassfish.web:el-impl:2.1.2-b03"
