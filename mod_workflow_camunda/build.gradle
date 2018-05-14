@@ -11,6 +11,9 @@ buildscript {
 }
 
 apply plugin: 'groovy'
+// See https://docs.gradle.org/current/userguide/war_plugin.html
+// Provides the "gradle war" target
+apply plugin: 'war'
 
 group = 'com.k_int.folio.workflow'
 version = '0.0.1-SNAPSHOT'
