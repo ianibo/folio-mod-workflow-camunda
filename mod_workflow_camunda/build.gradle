@@ -19,6 +19,10 @@ group = 'com.k_int.folio.workflow'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+ext {
+  camundaVersion='7.8.0'
+}
+
 repositories {
   mavenCentral()
   maven { url 'https://repo.grails.org/grails/core' }
@@ -41,10 +45,10 @@ dependencies {
   //compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter:2.4.0-SNAPSHOT"
   //compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-webapp:2.4.0-SNAPSHOT"
   //compile "org.camunda.bpm.springboot:camunda-bpm-spring-boot-starter-rest:2.4.0-SNAPSHOT"
-  compile "org.camunda.bpm:camunda-bom:7.8.0"
-  compile "org.camunda.bpm:camunda-engine:7.8.0"
-  compile "org.camunda.bpm:camunda-engine-spring:7.8.0"
-  compile "org.camunda.bpm:camunda-engine-rest:7.8.0"
+  compile "org.camunda.bpm:camunda-bom:${camundaVersion}"
+  compile "org.camunda.bpm:camunda-engine:${camundaVersion}"
+  compile "org.camunda.bpm:camunda-engine-spring:${camundaVersion}"
+  compile "org.camunda.bpm:camunda-engine-rest:${camundaVersion}"
   // compile "org.camunda.bpm:camunda-webapp:7.8.0"
   compile "org.jboss.resteasy:resteasy-jaxrs:3.0.8.Final"
   compile "org.springframework:spring-web:3.1.2.RELEASE"
