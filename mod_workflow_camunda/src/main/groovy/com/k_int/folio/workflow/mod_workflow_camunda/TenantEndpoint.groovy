@@ -1,7 +1,8 @@
 package com.k_int.folio.workflow.mod_workflow_camunda;
 
 import javax.ws.rs.Path;
-
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType
 
 // notes
 // @GET
@@ -16,7 +17,9 @@ import javax.ws.rs.Path;
 public class TenantEndpoint {
 
   @Path("/tenant")
-  public void handle() {
+  @Produces(MediaType.APPLICATION_JSON)
+  public String handle() {
     println("TenantEndpoint::handle");
+    return "{result:'OK'}"
   }
 }
