@@ -15,8 +15,12 @@ http://localhost:8080/modwf/engine/default/process-definition
 http://localhost:8080/modwf/process-instance/count
 after deploy
 
+What needs to be done
 
 
+Modify ProcessEngineProducer as in the multi-tenancy/schema-isolation project above to inject tenant-specific engines into incoming web requests
+
+Programatically create tenants as per https://forum.camunda.org/t/multi-tenancy-programmatically-create-tenant/2876/5
 
 THe demo
 
@@ -26,7 +30,13 @@ Make sure you've got a postgres db
     
     psql -U postgres -h localhost 
 
+    // DROP DATABASE foliodev;
     CREATE DATABASE foliodev;
     CREATE USER folio WITH PASSWORD 'folio';
     GRANT ALL PRIVILEGES ON DATABASE foliodev to folio;
+
+As folio user
+
+    psql -U folio -h localhost 
+    create schema camunda_default;
 

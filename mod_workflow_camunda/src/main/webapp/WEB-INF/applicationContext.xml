@@ -17,7 +17,7 @@
 	      -->
 
         <property name="driverClass" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://pghost:5432/foliodev" />
+        <property name="url" value="jdbc:postgresql://pghost:5432/foliodev?currentSchema=camunda_default" />
         <property name="username" value="folio" />
       	<property name="password" value="folio" />
       </bean>
