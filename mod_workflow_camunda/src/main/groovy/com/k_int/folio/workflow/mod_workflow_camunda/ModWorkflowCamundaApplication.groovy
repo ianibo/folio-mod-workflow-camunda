@@ -57,6 +57,8 @@ public class ModWorkflowCamundaApplication implements InitializingBean {
     println("transactionManager: ${transactionManager}");
 
     config.setDatabaseSchemaUpdate('true')
+    // BOTH these need to be done :/
+    config.setDatabaseSchema('modwf_diku')
     config.setDatabaseTablePrefix('modwf_diku.')
     config.setJobExecutorActivate(true)
     config.setProcessEngineName('diku')
