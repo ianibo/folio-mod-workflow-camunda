@@ -17,7 +17,8 @@
 	      -->
 
         <property name="driverClass" value="org.postgresql.Driver" />
-        <property name="url" value="jdbc:postgresql://pghost:5432/foliodev?currentSchema=camunda_default" />
+        <!--property name="url" value="jdbc:postgresql://pghost:5432/foliodev?currentSchema=camunda_default" -->
+        <property name="url" value="jdbc:postgresql://pghost:5432/foliodev" />
         <property name="username" value="folio" />
       	<property name="password" value="folio" />
       </bean>
@@ -29,14 +30,15 @@
     <property name="dataSource" ref="dataSource" />
   </bean>
 
-  <bean id="processEngineConfiguration"
-    class="org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration">
+  <bean id="processEngineConfiguration" class="org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration">
     <property name="processEngineName" value="default" />
     <property name="dataSource" ref="dataSource" />
     <property name="transactionManager" ref="transactionManager" />
     <property name="databaseSchemaUpdate" value="true" />
     <property name="jobExecutorActivate" value="false" />
     <property name="deploymentResources" value="classpath*:*.bpmn" />
+    <property name="databaseSchema" value="camunda_default" />
+    <property name="databaseTablePrefix" value="camunda_default." />
   </bean>
 
   <bean id="processEngine" class="org.camunda.bpm.engine.spring.ProcessEngineFactoryBean">
