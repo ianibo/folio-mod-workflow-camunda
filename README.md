@@ -15,3 +15,18 @@ http://localhost:8080/modwf/engine/default/process-definition
 http://localhost:8080/modwf/process-instance/count
 after deploy
 
+
+
+
+THe demo
+
+Make sure you've got a postgres db
+
+    have a hostname pghost for easy aliasing of postgres server. The JDBC connection is set for this host, just alias localhost to run locally.
+    
+    psql -U postgres -h localhost 
+
+    CREATE DATABASE foliodev;
+    CREATE USER folio WITH PASSWORD 'folio';
+    GRANT ALL PRIVILEGES ON DATABASE foliodev to folio;
+
