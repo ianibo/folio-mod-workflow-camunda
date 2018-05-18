@@ -39,6 +39,8 @@
     <property name="deploymentResources" value="classpath*:*.bpmn" />
     <property name="databaseSchema" value="camunda_default" />
     <property name="databaseTablePrefix" value="camunda_default." />
+    <!--
+    -->
   </bean>
 
   <bean id="processEngine" class="org.camunda.bpm.engine.spring.ProcessEngineFactoryBean">
