@@ -37,24 +37,32 @@ public class ModWorkflowCamundaApplication implements InitializingBean {
 
   private void configureTestTenants() {
     println("\n\n****\n\nModWorkflowCamundaApplication::configureTestTenants\n\n****\n\n");
+    println("dataSource: ${dataSource}");
+    println("transactionManager: ${transactionManager}");
     createTenant('modwf_diku');
     createTenant('modwf_diku_uk');
   }
 
   private void createTenant(String tenant_id) {
-    println("\n\n****\n\nModWorkflowCamundaApplication::createTenant(${tenant_id})\n\n****\n\n");
-
+    println("ModWorkflowCamundaApplication::createTenant(${tenant_id})");
     def root_conn = dataSource.getConnection()
 
     // See if tenant schema alreadt exists
-    if ( 1==1 ) {
+    if ( 1==2 ) {
       // No need to create the new schema - it already exists
     }
     else {
       // Create schema tenant_id
-      def create_schema_stmnt = root_conn.createStatement();
-      create_schema_stmnt.execute('create schema '+tenant_id)
-      root_conn.close();
+      try {
+        println("Attempt create schema ${tenant_id}");
+        def create_schema_stmnt = root_conn.createStatement();
+        create_schema_stmnt.executeUpdate('create schema '+tenant_id)
+        root_conn.close();
+        println("Done");
+      }
+      catch ( Exception e ) {
+        e.printStackTrace();
+      }
     }
 
     org.springframework.jdbc.datasource.SimpleDriverDataSource new_sdds = new org.springframework.jdbc.datasource.SimpleDriverDataSource();
@@ -72,9 +80,6 @@ public class ModWorkflowCamundaApplication implements InitializingBean {
 
     SpringProcessEngineConfiguration config = new SpringProcessEngineConfiguration();
 
-    println("dataSource: ${dataSource}");
-    println("transactionManager: ${transactionManager}");
-
     // BOTH these need to be done :/
     config.setDataSource(new_ds)
     config.setTransactionManager(new_tm)
@@ -85,7 +90,7 @@ public class ModWorkflowCamundaApplication implements InitializingBean {
     config.setHistory(ProcessEngineConfiguration.HISTORY_FULL)
     config.setDatabaseSchemaUpdate('true')
 
-    println("config: ${config}");
+    // println("config: ${config}");
 
     ProcessEngine processEngine = config.buildProcessEngine();
     RuntimeContainerDelegate.INSTANCE.get().registerProcessEngine(processEngine);
