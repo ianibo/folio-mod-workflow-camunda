@@ -9,7 +9,7 @@ import org.camunda.bpm.container.RuntimeContainerDelegate;
 import org.camunda.bpm.engine.ProcessEngine
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy
 import org.springframework.jdbc.datasource.DataSourceTransactionManager
-
+import org.postgresql.Driver
 
 public class ModWorkflowCamundaApplication implements InitializingBean {
 
@@ -51,14 +51,27 @@ public class ModWorkflowCamundaApplication implements InitializingBean {
     // .setJdbcUsername('folio')
     // .setJdbcPassword('folio')
 
+    org.springframework.jdbc.datasource.SimpleDriverDataSource new_sdds = new org.springframework.jdbc.datasource.SimpleDriverDataSource();
+    new_sdds.setDriverClass(Driver.class)
+    new_sdds.setUrl("jdbc:postgresql://pghost:5432/foliodev?currentSchema=modwf_diku")
+    new_sdds.setUsername("folio")
+    new_sdds.setPassword("folio")
+
+    org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy new_ds = new org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy()
+    new_ds.setTargetDataSource(new_sdds)
+
+    org.springframework.jdbc.datasource.DataSourceTransactionManager new_tm = new org.springframework.jdbc.datasource.DataSourceTransactionManager()
+    new_tm.setDataSource(new_ds);
+    
+
     SpringProcessEngineConfiguration config = new SpringProcessEngineConfiguration();
 
     println("dataSource: ${dataSource}");
     println("transactionManager: ${transactionManager}");
 
     // BOTH these need to be done :/
-    config.setDataSource(dataSource)
-    config.setTransactionManager(transactionManager)
+    config.setDataSource(new_ds)
+    config.setTransactionManager(new_tm)
     config.setDatabaseSchema('modwf_diku')
     config.setDatabaseTablePrefix('modwf_diku.')
     config.setJobExecutorActivate(true)
