@@ -37,23 +37,29 @@ public class ModWorkflowCamundaApplication implements InitializingBean {
 
   private void configureTestTenants() {
     println("\n\n****\n\nModWorkflowCamundaApplication::configureTestTenants\n\n****\n\n");
-    // https://docs.camunda.org/manual/7.7/user-guide/spring-framework-integration/
-    // 
-    // Consider using .setDataSource(dataSource());
-    // .setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_TRUE)
-    //
-    // https://docs.camunda.org/manual/7.3/api-references/deployment-descriptors/#tags-process-engine-configuration-configuration-properties
-    //
-    // ProcessEngine processEngine = ProcessEngineConfiguration.createStandaloneProcessEngineConfiguration()
-    // .setJdbcUrl('jdbc:postgresql://pghost:5432/foliodev?currentSchema=modwf_diku')
-    // .setJdbcDriver('org.postgresql.Driver')
-    // .setJdbcUrl('jdbc:postgresql://pghost:5432/foliodev')
-    // .setJdbcUsername('folio')
-    // .setJdbcPassword('folio')
+    createTenant('modwf_diku');
+    createTenant('modwf_diku_uk');
+  }
+
+  private void createTenant(String tenant_id) {
+    println("\n\n****\n\nModWorkflowCamundaApplication::createTenant(${tenant_id})\n\n****\n\n");
+
+    def root_conn = dataSource.getConnection()
+
+    // See if tenant schema alreadt exists
+    if ( 1==1 ) {
+      // No need to create the new schema - it already exists
+    }
+    else {
+      // Create schema tenant_id
+      def create_schema_stmnt = root_conn.createStatement();
+      create_schema_stmnt.execute('create schema '+tenant_id)
+      root_conn.close();
+    }
 
     org.springframework.jdbc.datasource.SimpleDriverDataSource new_sdds = new org.springframework.jdbc.datasource.SimpleDriverDataSource();
     new_sdds.setDriverClass(Driver.class)
-    new_sdds.setUrl("jdbc:postgresql://pghost:5432/foliodev?currentSchema=modwf_diku")
+    new_sdds.setUrl("jdbc:postgresql://pghost:5432/foliodev?currentSchema=${tenant_id}")
     new_sdds.setUsername("folio")
     new_sdds.setPassword("folio")
 
@@ -72,8 +78,8 @@ public class ModWorkflowCamundaApplication implements InitializingBean {
     // BOTH these need to be done :/
     config.setDataSource(new_ds)
     config.setTransactionManager(new_tm)
-    config.setDatabaseSchema('modwf_diku')
-    config.setDatabaseTablePrefix('modwf_diku.')
+    config.setDatabaseSchema(tenant_id)
+    config.setDatabaseTablePrefix(tenant_id+'.')
     config.setJobExecutorActivate(true)
     config.setProcessEngineName('diku')
     config.setHistory(ProcessEngineConfiguration.HISTORY_FULL)
@@ -82,8 +88,6 @@ public class ModWorkflowCamundaApplication implements InitializingBean {
     println("config: ${config}");
 
     ProcessEngine processEngine = config.buildProcessEngine();
-  
     RuntimeContainerDelegate.INSTANCE.get().registerProcessEngine(processEngine);
-
   }
 }
