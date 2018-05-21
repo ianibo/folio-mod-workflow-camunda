@@ -44,13 +44,13 @@ As folio user
     create schema modwf_diku;
 
 
-REST Interactions
+# REST Interactions
 
 // List all process definitions
 
 http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition
 
-### Start a GenricPatronSupportProcess - Simple
+## Start a GenricPatronSupportProcess - Simple
 
 curl -H "Content-Type: application/json" -X POST \
 -d '
@@ -65,7 +65,7 @@ curl -H "Content-Type: application/json" -X POST \
 }' \
 http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition/key/GenericPatronSupportProcess/start
 
-### Start a GenricPatronSupportProcess - Pre-Classified
+## Start a GenricPatronSupportProcess - Pre-Classified
 
 curl -H "Content-Type: application/json" -X POST \
 -d '
@@ -81,7 +81,7 @@ curl -H "Content-Type: application/json" -X POST \
 }' \
 http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition/key/GenericPatronSupportProcess/start
 
-### List all tasks currently open for GenericPatronSupportProcess
+## List all tasks currently open for GenericPatronSupportProcess
 
 More info here:: https://docs.camunda.org/manual/latest/reference/rest/task/get-query/#example
 
@@ -123,3 +123,9 @@ Note %20 escaping of space
 
 curl -H "Content-Type: application/json" -X PUT "http://localhost:8080/modwf/engine/modwf_diku_uk/group/Patron%20Support/members/8324982777388837383"
 
+## List ALL tasks available for user freda
+
+http://localhost:8080/modwf/engine/modwf_diku_uk/task?candidateUser=8324982777388837383
+
+
+#
