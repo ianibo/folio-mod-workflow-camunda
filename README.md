@@ -53,11 +53,46 @@ http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition
 ### Start a GenricPatronSupportProcess - Simple
 
 curl -H "Content-Type: application/json" -X POST \
--d '{"variables":{"someData" : {"value" : "someValue", "type": "String"}},"businessKey" : "12345","PatronName":"Fred Flintstone","PatronId":"12349876","PatronQuery":"Does the patron query system work ok?"}' \
+-d '
+{
+  "variables":{
+    "someData" : {"value" : "someValue", "type": "String"}, 
+    "PatronName" : { "value" : "Fred Flintstone", "type": "String" },
+    "PatronId" : { "value" : "123456753334", "type": "String" },
+    "PatronQuery" : { "value" : "This is a general patron support query which has not been pre-classified", "type": "String" }
+  },
+  "businessKey" : "12345"
+}' \
 http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition/key/GenericPatronSupportProcess/start
 
 ### Start a GenricPatronSupportProcess - Pre-Classified
 
 curl -H "Content-Type: application/json" -X POST \
--d '{"variables":{"someData" : {"value" : "someValue", "type": "String"}},"businessKey" : "12345","PatronName":"Fred Flintstone","PatronId":"12349876","PatronQuery":"This is a general patron support query","classification":"General"}' \
+-d '
+{
+  "variables":{
+    "someData" : {"value" : "someValue", "type": "String"}, 
+    "PatronName" : { "value" : "Fred Flintstone", "type": "String" },
+    "PatronId" : { "value" : "123456753334", "type": "String" },
+    "PatronQuery" : { "value" : "This is a general patron support query which has been pre-classified", "type": "String" },
+    "classification" : { "value" : "General", "type": "String" }
+  },
+  "businessKey" : "12345"
+}' \
 http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition/key/GenericPatronSupportProcess/start
+
+### List all tasks currently open for GenericPatronSupportProcess
+
+More info here:: https://docs.camunda.org/manual/latest/reference/rest/task/get-query/#example
+
+http://localhost:8080/modwf/engine/modwf_diku_uk/task?processDefinitionKey=GenericPatronSupportProcess
+
+
+Extract the task ID and use calls like
+
+http://localhost:8080/modwf/engine/modwf_diku_uk/task/#TASKID##
+http://localhost:8080/modwf/engine/modwf_diku_uk/task/#TASKID##/variables
+
+to inspect
+
+
