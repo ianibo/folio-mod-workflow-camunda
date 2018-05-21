@@ -65,6 +65,7 @@ println(PatronQuery);</bpmn:script>
     <bpmn:sequenceFlow id="SequenceFlow_1tqeopz" sourceRef="StartEvent_1" targetRef="ExclusiveGateway_0aayhdm" />
     <bpmn:sequenceFlow id="SequenceFlow_1drcfiu" sourceRef="ExclusiveGateway_0aayhdm" targetRef="ExclusiveGateway_1aq1iy3">
       <bpmn:documentation>Default path - classification set</bpmn:documentation>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.getVariable('classification') != null}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1uz3769" sourceRef="ExclusiveGateway_0aayhdm" targetRef="Task_ClassifyPatronRequest">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.getVariable('classification')==null}</bpmn:conditionExpression>
