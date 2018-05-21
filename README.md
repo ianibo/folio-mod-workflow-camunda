@@ -8,6 +8,8 @@ https://github.com/camunda/camunda-bpm-examples/tree/master/multi-tenancy/schema
 https://github.com/camunda/camunda-bpm-examples/tree/master/deployment/embedded-spring-rest
 https://blog.bernd-ruecker.com/use-camunda-without-touching-java-and-get-an-easy-to-use-rest-based-orchestration-and-workflow-7bdf25ac198e
 https://github.com/camunda/camunda-bpm-webapp
+https://github.com/camunda/camunda-bpm-examples
+https://docs.camunda.org/manual/7.5/user-guide/process-engine/multi-tenancy/
 
 
 Visit
@@ -39,4 +41,5 @@ As folio user
 
     psql -U folio -h localhost 
     create schema camunda_default;
+    create schema modwf_diku;
 

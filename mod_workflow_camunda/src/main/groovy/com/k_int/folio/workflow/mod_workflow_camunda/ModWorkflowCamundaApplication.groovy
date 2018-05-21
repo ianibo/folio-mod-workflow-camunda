@@ -86,7 +86,7 @@ public class ModWorkflowCamundaApplication implements InitializingBean {
     config.setDatabaseSchema(tenant_id)
     config.setDatabaseTablePrefix(tenant_id+'.')
     config.setJobExecutorActivate(true)
-    config.setProcessEngineName('diku')
+    config.setProcessEngineName(tenant_id)
     config.setHistory(ProcessEngineConfiguration.HISTORY_FULL)
     config.setDatabaseSchemaUpdate('true')
 
