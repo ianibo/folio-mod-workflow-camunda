@@ -3,6 +3,8 @@ package com.k_int.folio.workflow.mod_workflow_camunda
 import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.container.RuntimeContainerDelegate;
@@ -12,6 +14,9 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager
 import org.postgresql.Driver
 
 public class ModWorkflowCamundaApplication implements InitializingBean {
+
+  @Value("classpath*:*.bpmn")
+  private Resource[] bpmn_classpath_resources;
 
   @Autowired
   private RuntimeService runtimeService;
@@ -27,7 +32,7 @@ public class ModWorkflowCamundaApplication implements InitializingBean {
 
 
   public void afterPropertiesSet() throws Exception {
-    runtimeService.startProcessInstanceByKey("loanApproval");
+    // runtimeService.startProcessInstanceByKey("loanApproval");
     configureTestTenants()
   }
 
@@ -80,15 +85,17 @@ public class ModWorkflowCamundaApplication implements InitializingBean {
 
     SpringProcessEngineConfiguration config = new SpringProcessEngineConfiguration();
 
-    // BOTH these need to be done :/
     config.setDataSource(new_ds)
     config.setTransactionManager(new_tm)
+    // BOTH these (schema and table prefix) need to be done :/
     config.setDatabaseSchema(tenant_id)
     config.setDatabaseTablePrefix(tenant_id+'.')
     config.setJobExecutorActivate(true)
     config.setProcessEngineName(tenant_id)
     config.setHistory(ProcessEngineConfiguration.HISTORY_FULL)
     config.setDatabaseSchemaUpdate('true')
+    // Suck any bpmn process descriptors off classpath and install them
+    config.setDeploymentResources(bpmn_classpath_resources)
 
     // println("config: ${config}");
 

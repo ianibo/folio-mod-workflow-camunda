@@ -10,7 +10,7 @@ https://blog.bernd-ruecker.com/use-camunda-without-touching-java-and-get-an-easy
 https://github.com/camunda/camunda-bpm-webapp
 https://github.com/camunda/camunda-bpm-examples
 https://docs.camunda.org/manual/7.5/user-guide/process-engine/multi-tenancy/
-
+http://juel.sourceforge.net/
 
 Visit
 http://localhost:8080/modwf/engine/default/process-definition
@@ -43,3 +43,21 @@ As folio user
     create schema camunda_default;
     create schema modwf_diku;
 
+
+REST Interactions
+
+// List all process definitions
+
+http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition
+
+### Start a GenricPatronSupportProcess - Simple
+
+curl -H "Content-Type: application/json" -X POST \
+-d '{"variables":{"someData" : {"value" : "someValue", "type": "String"}},"businessKey" : "12345","PatronName":"Fred Flintstone","PatronId":"12349876","PatronQuery":"Does the patron query system work ok?"}' \
+http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition/key/GenericPatronSupportProcess/start
+
+### Start a GenricPatronSupportProcess - Pre-Classified
+
+curl -H "Content-Type: application/json" -X POST \
+-d '{"variables":{"someData" : {"value" : "someValue", "type": "String"}},"businessKey" : "12345","PatronName":"Fred Flintstone","PatronId":"12349876","PatronQuery":"This is a general patron support query","classification":"General"}' \
+http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition/key/GenericPatronSupportProcess/start
