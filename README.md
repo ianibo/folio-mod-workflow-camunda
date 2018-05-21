@@ -93,6 +93,33 @@ Extract the task ID and use calls like
 http://localhost:8080/modwf/engine/modwf_diku_uk/task/#TASKID##
 http://localhost:8080/modwf/engine/modwf_diku_uk/task/#TASKID##/variables
 
-to inspect
+Use &candidateUser=freda to list only tasks that user freda (Or one of freda's groups) are allowed to lock.
 
+## Groups
+
+curl -H "Content-Type: application/json" -X POST -d '
+{"id":"Patron Support",
+ "name":"Patron Support",
+ "type":"Organizational Unit"
+}' http://localhost:8080/modwf/engine/modwf_diku_uk/group/create
+
+## Users
+
+https://docs.camunda.org/manual/latest/reference/rest/user/post-create/
+
+curl -H "Content-Type: application/json" -X POST -d '
+{"profile": 
+  {"id": "8324982777388837383",
+  "firstName":"Freda",
+  "lastName":"Jones",
+  "email":"fread@some.domain"
+  }
+} ' \
+http://localhost:8080/modwf/engine/modwf_diku_uk/user/create
+
+## Group Membership
+
+Note %20 escaping of space
+
+curl -H "Content-Type: application/json" -X PUT "http://localhost:8080/modwf/engine/modwf_diku_uk/group/Patron%20Support/members/8324982777388837383"
 
