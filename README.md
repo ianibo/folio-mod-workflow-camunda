@@ -52,40 +52,41 @@ http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition
 
 ## Start a GenricPatronSupportProcess - Simple
 
-curl -H "Content-Type: application/json" -X POST \
--d '
-{
-  "variables":{
-    "someData" : {"value" : "someValue", "type": "String"}, 
-    "PatronName" : { "value" : "Fred Flintstone", "type": "String" },
-    "PatronId" : { "value" : "123456753334", "type": "String" },
-    "PatronQuery" : { "value" : "This is a general patron support query which has not been pre-classified", "type": "String" }
-  },
-  "businessKey" : "12345"
-}' \
-http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition/key/GenericPatronSupportProcess/start
+    curl -H "Content-Type: application/json" -X POST \
+    -d '
+    {
+      "variables":{
+        "someData" : {"value" : "someValue", "type": "String"}, 
+        "PatronName" : { "value" : "Fred Flintstone", "type": "String" },
+        "PatronId" : { "value" : "123456753334", "type": "String" },
+        "PatronQuery" : { "value" : "This is a general patron support query which has not been pre-classified", "type": "String" }
+      },
+      "businessKey" : "12344475"
+    }' \
+    http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition/key/GenericPatronSupportProcess/start
 
 ## Start a GenricPatronSupportProcess - Pre-Classified
 
-curl -H "Content-Type: application/json" -X POST \
--d '
-{
-  "variables":{
-    "someData" : {"value" : "someValue", "type": "String"}, 
-    "PatronName" : { "value" : "Fred Flintstone", "type": "String" },
-    "PatronId" : { "value" : "123456753334", "type": "String" },
-    "PatronQuery" : { "value" : "This is a general patron support query which has been pre-classified", "type": "String" },
-    "classification" : { "value" : "General", "type": "String" }
-  },
-  "businessKey" : "12345"
-}' \
-http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition/key/GenericPatronSupportProcess/start
+    curl -H "Content-Type: application/json" -X POST \
+    -d '
+    {
+      "variables":{
+        "someData" : {"value" : "someValue", "type": "String"}, 
+        "PatronName" : { "value" : "Fred Flintstone", "type": "String" },
+        "PatronId" : { "value" : "123456753334", "type": "String" },
+        "PatronQuery" : { "value" : "This is a general patron support query which has been pre-classified", "type": "String" },
+        "classification" : { "value" : "General", "type": "String" }
+      },
+      "businessKey" : "12345"
+    }' \
+    http://localhost:8080/modwf/engine/modwf_diku_uk/process-definition/key/GenericPatronSupportProcess/start
 
 ## List all tasks currently open for GenericPatronSupportProcess
 
 More info here:: https://docs.camunda.org/manual/latest/reference/rest/task/get-query/#example
 
-http://localhost:8080/modwf/engine/modwf_diku_uk/task?processDefinitionKey=GenericPatronSupportProcess
+http://localhost:8080/modwf/engine/modwf_diku_uk/task?processDefinitionKey=GenericPatronSupportProcess&maxResults=100
+http://localhost:8080/modwf/engine/modwf_diku_uk/task?maxResults=100
 
 
 Extract the task ID and use calls like
@@ -97,31 +98,33 @@ Use &candidateUser=freda to list only tasks that user freda (Or one of freda's g
 
 ## Groups
 
-curl -H "Content-Type: application/json" -X POST -d '
-{"id":"Patron Support",
- "name":"Patron Support",
- "type":"Organizational Unit"
-}' http://localhost:8080/modwf/engine/modwf_diku_uk/group/create
+    curl -H "Content-Type: application/json" -X POST -d '
+    {
+      "id":"Patron Support",
+      "name":"Patron Support",
+      "type":"Organizational Unit"
+    }' http://localhost:8080/modwf/engine/modwf_diku_uk/group/create
 
 ## Users
 
-https://docs.camunda.org/manual/latest/reference/rest/user/post-create/
+    https://docs.camunda.org/manual/latest/reference/rest/user/post-create/
 
-curl -H "Content-Type: application/json" -X POST -d '
-{"profile": 
-  {"id": "8324982777388837383",
-  "firstName":"Freda",
-  "lastName":"Jones",
-  "email":"fread@some.domain"
-  }
-} ' \
-http://localhost:8080/modwf/engine/modwf_diku_uk/user/create
+    curl -H "Content-Type: application/json" -X POST -d '
+    {
+      "profile": {
+        "id": "8324982777388837383",
+        "firstName":"Freda",
+        "lastName":"Jones",
+        "email":"fread@some.domain"
+      }
+    } ' \
+    http://localhost:8080/modwf/engine/modwf_diku_uk/user/create
 
 ## Group Membership
 
 Note %20 escaping of space
 
-curl -H "Content-Type: application/json" -X PUT "http://localhost:8080/modwf/engine/modwf_diku_uk/group/Patron%20Support/members/8324982777388837383"
+    curl -H "Content-Type: application/json" -X PUT "http://localhost:8080/modwf/engine/modwf_diku_uk/group/Patron%20Support/members/8324982777388837383"
 
 ## List ALL tasks available for user freda
 

@@ -58,7 +58,7 @@ println(PatronQuery);</bpmn:script>
     <bpmn:sequenceFlow id="SequenceFlow_1uz3769" sourceRef="ExclusiveGateway_0aayhdm" targetRef="Task_ClassifyPatronRequest">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.getVariable('classification')==null}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:userTask id="Task_ClassifyPatronRequest" name="Classify">
+    <bpmn:userTask id="Task_ClassifyPatronRequest" name="Classify" camunda:candidateGroups="Patron Support">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="PatronName" />
@@ -79,15 +79,15 @@ println(PatronQuery);</bpmn:script>
       <bpmn:outgoing>SequenceFlow_1drcfiu</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1uz3769</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="Task_1cayiv0" name="Technical Issues">
+    <bpmn:userTask id="Task_1cayiv0" name="Technical Issues" camunda:candidateGroups="Patron Support">
       <bpmn:incoming>SequenceFlow_1ci9l22</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0iftjo3</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Task_0teqlt9" name="General Issues">
+    <bpmn:userTask id="Task_0teqlt9" name="General Issues" camunda:candidateGroups="Patron Support">
       <bpmn:incoming>SequenceFlow_044nkxq</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1e79ccs</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="Task_1pbeu1s" name="Questions">
+    <bpmn:userTask id="Task_1pbeu1s" name="Questions" camunda:candidateGroups="Support Desk">
       <bpmn:incoming>SequenceFlow_1a48ikh</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0thr7tn</bpmn:outgoing>
     </bpmn:userTask>
