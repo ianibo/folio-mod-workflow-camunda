@@ -50,6 +50,7 @@ dependencies {
   compile "org.camunda.bpm:camunda-engine-spring:${camundaVersion}"
   compile "org.camunda.bpm:camunda-engine-rest:${camundaVersion}"
   compile "org.camunda.bpm.webapp:camunda-webapp:${camundaVersion}"
+  compile "org.camunda.bpm.extension.camel:camunda-bpm-camel-spring:0.5"
 
   // compile "org.camunda.bpm:camunda-webapp:7.8.0"
   compile "org.jboss.resteasy:resteasy-jaxrs:3.0.8.Final"
